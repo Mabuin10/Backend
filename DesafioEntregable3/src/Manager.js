@@ -1,4 +1,5 @@
 import PManager from "./ProductManager.js"
+import { __dirName } from "./Utils.js"
 
 const { ProductManager } = PManager
 
@@ -13,7 +14,7 @@ let FirstProducts = new ProductManager("./product.json")
 //     25);
 
 // TRAE TODOS LOS PRODUCTOS
-// FirstProducts.getProducts().then((data) => console.log("get products", data))
+FirstProducts.getProducts().then((data) => console.log(data))
 // TRAE PRODUCTO POR ID
 // FirstProducts.getProductsById("81ba8989-d808-4242-94ca-e3739c6e930e").then((data) => console.log("get products", data))
 // ACTUALIZA EL PRODUCTO

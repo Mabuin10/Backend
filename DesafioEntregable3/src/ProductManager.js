@@ -1,7 +1,7 @@
 import utils from "./Utils.js"
 import crypto from "crypto" 
 
-class ProductManager {
+export class ProductManager {
     constructor(path) {
         this.path = path;
         this.products = [];
@@ -56,6 +56,7 @@ class ProductManager {
     async getProducts() {
         try {
             let data = await utils.readF(this.path);
+            this.products = data;
             return data?.length > 0 ? this.products : "aun no hay registros";
         } catch (error) {
             console.log(error);
