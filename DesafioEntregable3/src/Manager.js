@@ -14,9 +14,9 @@ let FirstProducts = new ProductManager("./product.json")
 //     25);
 
 // TRAE TODOS LOS PRODUCTOS
-FirstProducts.getProducts().then((data) => console.log(data))
+// FirstProducts.getProducts().then((data) => console.log(data))
 // TRAE PRODUCTO POR ID
-// FirstProducts.getProductsById("81ba8989-d808-4242-94ca-e3739c6e930e").then((data) => console.log("get products", data))
+FirstProducts.getProductsById("3a8c0ae9-8e2f-42ef-b489-af1d854c7fb4").then((data) => console.log("get products", data))
 // ACTUALIZA EL PRODUCTO
 // FirstProducts
 //   .updateProductById("81ba8989-d808-4242-94ca-e3739c6e930e", {

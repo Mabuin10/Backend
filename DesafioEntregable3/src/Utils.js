@@ -5,10 +5,11 @@ import { dirname } from 'path';
 
 
 export const __fileName = fileURLToPath(import.meta.url);
-export const __dirName = dirname(__fileName)
+export const __dirName = dirname(__fileName);
 
 async function readF(file){
     try{
+        // let readFileName = __dirName + "/" + file;
         let result = await fs.promises.readFile(__dirName + "/" + file, "utf-8");
         let data = await JSON.parse(result);
         return data
@@ -19,7 +20,7 @@ async function readF(file){
 
 async function writeF(file, data){
     try{
-        let result = await fs.promises.writeFile(__dirName + "/" + file, JSON.stringify(data));
+        await fs.promises.writeFile(__dirName + "/" + file, JSON.stringify(data));
         return true
     }catch(err){
         console.log(err);

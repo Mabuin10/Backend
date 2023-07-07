@@ -1,4 +1,4 @@
-import utils from "./Utils.js"
+import Utils from "./Utils.js"
 import crypto from "crypto" 
 
 export class ProductManager {
@@ -22,7 +22,7 @@ export class ProductManager {
             throw new Error("Todos los campos son obligatorios");
         }
         try {
-            let data = await utils.readF(this.path);
+            let data = await Utils.readF(this.path);
             this.products = data?.length > 0 ? data : [];
         } catch (error) {
             console.log(error);
@@ -45,7 +45,7 @@ export class ProductManager {
             };
             this.products.push(newProduct);
             try {
-                await utils.writeF(this.path, this.products);
+                await Utils.writeF(this.path, this.products);
             } catch (error) {
                 console.log(error);
             }
@@ -55,7 +55,7 @@ export class ProductManager {
 
     async getProducts() {
         try {
-            let data = await utils.readF(this.path);
+            let data = await Utils.readF(this.path);
             this.products = data;
             return data?.length > 0 ? this.products : "aun no hay registros";
         } catch (error) {
@@ -65,7 +65,7 @@ export class ProductManager {
 
     async getProductsById(id) {
         try {
-            let data = await utils.readF(this.path);
+            let data = await Utils.readF(this.path);
             this.products = data?.length > 0 ? data : [];
             let product = this.products.find((dato) => dato.id === id);
 
@@ -81,7 +81,7 @@ export class ProductManager {
 
     async updateProductById(id, data) {
         try {
-            let products = await utils.readF(this.path);
+            let products = await Utils.readF(this.path);
             this.products = products?.length > 0 ? products : [];
 
             let productIndex = this.products.findIndex((dato) => dato.id === id);
@@ -90,7 +90,7 @@ export class ProductManager {
                     ...this.products[productIndex],
                     ...data,
                 };
-                await utils.writeF(this.path, products);
+                await Utils.writeF(this.path, products);
                 return {
                     mensaje: "producto actualizado",
                     producto: this.products[productIndex],
@@ -106,13 +106,13 @@ export class ProductManager {
 
     async deleteProductById(id) {
         try {
-            let products = await utils.readF(this.path);
+            let products = await Utils.readF(this.path);
             this.products = products?.length > 0 ? products : [];
             let productIndex = this.products.findIndex((dato) => dato.id === id);
             if (productIndex !== -1) {
                 let product = this.products[productIndex];
                 this.products.splice(productIndex, 1);
-                await utils.writeF(this.path, products);
+                await Utils.writeF(this.path, products);
                 return { mensaje: "Producto Eliminado", producto: product };
             } else {
                 return { mensaje: "No existe el producto solicitado" };

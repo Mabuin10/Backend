@@ -7,5 +7,32 @@
         "thumbnail": "sin imagen",
         "code": "abc123",
         "stock": 25
-      }
+      },
+      {
+        "id": "3a8c0ae9-8e2f-42ef-b489-af1d854c7fb4",
+        "title": "producto prueba",
+        "description": "Este es un producto de prueba",
+        "price": 200,
+        "thumbnail": "sin imagen",
+        "code": "abcd124",
+        "stock": 25
+    },
+    {
+        "id": "81ba8989-d808-4242-94ca-e3739c6e930e",
+        "title": "producto prueba",
+        "description": "Este es un producto de prueba",
+        "price": 200,
+        "thumbnail": "sin imagen",
+        "code": "abcd1234",
+        "stock": 25
+    },
+    {
+        "id": "351c46c2-ece4-4054-a693-9304d340c9ec",
+        "title": "producto prueba",
+        "description": "Este es un producto de prueba",
+        "price": 200,
+        "thumbnail": "sin imagen",
+        "code": "abcd12e34",
+        "stock": 30
+    }
 ]
