@@ -3,20 +3,20 @@ import { __dirName } from "./Utils.js"
 
 const { ProductManager } = PManager
 
-let FirstProducts = new ProductManager("./product.json")
+let FirstProducts = new ProductManager("./CelPhones.json")
 // Crea un producto en product.json
 // FirstProducts.addProduct(
-//     "producto prueba matias",
-//     "Este es un producto de prueba",
-//     200,
+//     "Prueba 2",
+//     "Celular 12",
+//     2001,
 //     "sin imagen",
-//     "abcd1211",
+//     "abc1112",
 //     25);
 
 // TRAE TODOS LOS PRODUCTOS
 // FirstProducts.getProducts().then((data) => console.log(data))
 // TRAE PRODUCTO POR ID
-FirstProducts.getProductsById("3a8c0ae9-8e2f-42ef-b489-af1d854c7fb4").then((data) => console.log("get products", data))
+// FirstProducts.getProductsById("364f9bc2-deac-47b7-99ea-ad70dbe7bfb7").then((data) => console.log("get products", data))
 // ACTUALIZA EL PRODUCTO
 // FirstProducts
 //   .updateProductById("81ba8989-d808-4242-94ca-e3739c6e930e", {

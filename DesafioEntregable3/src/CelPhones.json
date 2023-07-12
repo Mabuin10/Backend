@@ -1,0 +1,110 @@
+[
+  {
+    "id": "bb1a0121-49aa-4422-9ccc-ae2ffc7f1fc8",
+    "title": "Iphone",
+    "description": "Celular 1",
+    "price": 1200,
+    "thumbnail": "sin imagen",
+    "code": "abc111",
+    "stock": 25
+  },
+  {
+    "id": "8ab9ecfd-0526-4135-a583-1cf986d687ff",
+    "title": "Iphone 2",
+    "description": "Celular 2",
+    "price": 1300,
+    "thumbnail": "sin imagen",
+    "code": "abc112",
+    "stock": 25
+  },
+  {
+    "id": "364f9bc2-deac-47b7-99ea-ad70dbe7bfb7",
+    "title": "Iphone 3",
+    "description": "Celular 3",
+    "price": 1400,
+    "thumbnail": "sin imagen",
+    "code": "abc113",
+    "stock": 25
+  },
+  {
+    "id": "49ebe512-87b7-49ea-9356-24a84b761bc3",
+    "title": "Motorola 1",
+    "description": "Celular 4",
+    "price": 1000,
+    "thumbnail": "sin imagen",
+    "code": "abcM111",
+    "stock": 25
+  },
+  {
+    "id": "2fd09bb6-0703-447e-8edb-8be6f8fef525",
+    "title": "Motorola 2",
+    "description": "Celular 5",
+    "price": 1100,
+    "thumbnail": "sin imagen",
+    "code": "abcM112",
+    "stock": 25
+  },
+  {
+    "id": "4da9225f-6335-4470-8ce9-4fecd134dd76",
+    "title": "Motorola 3",
+    "description": "Celular 6",
+    "price": 1200,
+    "thumbnail": "sin imagen",
+    "code": "abcM113",
+    "stock": 25
+  },
+  {
+    "id": "a6b9d6fc-46ad-4157-acef-9ab16fd15178",
+    "title": "Motorola 4",
+    "description": "Celular 7",
+    "price": 1500,
+    "thumbnail": "sin imagen",
+    "code": "abcM114",
+    "stock": 25
+  },
+  {
+    "id": "05bfe51d-480c-4abe-b341-9f7c1312a8c1",
+    "title": "Samgung 1",
+    "description": "Celular 8",
+    "price": 1200,
+    "thumbnail": "sin imagen",
+    "code": "abcS111",
+    "stock": 25
+  },
+  {
+    "id": "f783620b-f5fa-4db4-a3f4-bed6f0e32559",
+    "title": "Samgung 2",
+    "description": "Celular 9",
+    "price": 1300,
+    "thumbnail": "sin imagen",
+    "code": "abcS112",
+    "stock": 25
+  },
+  {
+    "id": "d03079e3-15d2-4a22-b745-df1c8d142e5b",
+    "title": "Samgung 3",
+    "description": "Celular 10",
+    "price": 1300,
+    "thumbnail": "sin imagen",
+    "code": "abcS113",
+    "stock": 25
+  },
+  {
+    "id": "ec390436-a226-4cf2-a6c5-b2eaff2dc5c3",
+    "title": "Prueba 1",
+    "description": "Celular 11",
+    "price": 2000,
+    "thumbnail": "sin imagen",
+    "code": "abc1111",
+    "stock": 25
+  },
+  {
+    "id": "36bff7f7-4ef6-4b77-819a-b3921a6fd51f",
+    "title": "Prueba 2",
+    "description": "Celular 12",
+    "price": 2001,
+    "thumbnail": "sin imagen",
+    "code": "abc1112",
+    "stock": 25
+  }
+]
