@@ -3,7 +3,7 @@ import { ProductManager } from "./ProductManager.js";
 
 const app = express()
 const PORT = 8080;
-const productManager = new ProductManager("product.json")
+const productManager = new ProductManager("CelPhones.json")
 
 let productos = [];
 

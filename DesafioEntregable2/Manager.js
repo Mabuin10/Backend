@@ -3,13 +3,14 @@ import PManager from "./ProductManager.js"
 const { ProductManager } = PManager
 
 let FirstProducts = new ProductManager("./product.json")
-FirstProducts.addProduct(
-    "producto prueba",
-    "Este es un producto de prueba",
-    200,
-    "sin imagen",
-    "abcd12e34",
-    30);
+// Crea un producto en product.json
+// FirstProducts.addProduct(
+//     "producto prueba matias",
+//     "Este es un producto de prueba",
+//     200,
+//     "sin imagen",
+//     "abcd1211",
+//     25);
 
 // TRAE TODOS LOS PRODUCTOS
 // FirstProducts.getProducts().then((data) => console.log("get products", data))
@@ -27,5 +28,5 @@ FirstProducts.addProduct(
 //   .then((data) => console.log("resultado", data));
 
 // ELIMINA EL PRODUCTO
-// .deleteProductById("81ba8989-d808-4242-94ca-e3739c6e930e")
-  // .then((data) => console.log("el resultado de la eliminacion es:", data));
+// .deleteProductById("cf95e4d8-b4be-4019-a206-327a270450fa")
+//   .then((data) => console.log("el resultado de la eliminacion es:", data));
