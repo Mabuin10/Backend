@@ -4,7 +4,7 @@ import { ProductManager } from "../classes/ProductManager.js";
 const router = Router();
 let productos = [];
 
-const productManager = new ProductManager("CelPhones.json");
+const productManager = new ProductManager("./data/CelPhones.json");
 
 router.get("/", async (req, res) => {
   const { limit } = req.query;
@@ -12,10 +12,6 @@ router.get("/", async (req, res) => {
     let response = await productManager.getProducts();
     if (limit) {
       let tempArray = response.filter((dat, index) => index < limit);
-      /* let tempArray = response.map((dat, index) => {
-          return index < limit && dat;
-        });
-        */
       res.json({ data: tempArray, limit: limit, quantity: tempArray.length });
     } else {
       res.json({ data: response, limit: false, quantity: response.length });
