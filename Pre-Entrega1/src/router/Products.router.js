@@ -90,18 +90,18 @@ router.put("/:pid", async (req, res) => {
 
   if (product) {
     ///accion de actualizar
-    if (
-      (!title,
-      !description,
-      !code,
-      !price,
-      !status,
-      !stock,
-      !category,
-      !thumbnails)
-    ) {
-      res.json({ message: "faltan datos" });
-    }
+    // if ((
+    //   // (!title,
+    //   // !description,
+    //   !code
+    //   // !price,
+    //   // !status,
+    //   // !stock,
+    //   // !category,
+    //   // !thumbnails)
+    // )) {
+    //   res.json({ message: "faltan datos" });
+    // }
     //actualizamos nuestro producto temporal
     productTemp.title = title;
     productTemp.description = description;
