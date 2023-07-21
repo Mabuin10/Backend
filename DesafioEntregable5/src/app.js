@@ -5,7 +5,7 @@ import viewsRoutes from "./routes/views.router.js";
 import viewsRealTime from "./routes/realTimeProduct.router.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
-import { guardarProducto } from "./services/productUtils.js";
+import { SaveProduct } from "./services/productUtils.js";
 
 const app = express();
 const httpServer = createServer(app);
@@ -45,30 +45,24 @@ const io = new Server(httpServer);
 io.on("connection", (socket) => {
   console.log("Nuevo cliente conectado");
 
-  // Manejar eventos personalizados
   socket.on("mensaje", (data) => {
     console.log("Mensaje recibido:", data);
 
-    // Enviar una respuesta al cliente
     socket.emit("respuesta", "Mensaje recibido correctamente");
   });
 
-  // Escuchar evento 'agregarProducto' y emitir 'nuevoProductoAgregado'
   socket.on("agregarProducto", (newProduct) => {
     console.log("Nuevo producto recibido backend:", newProduct);
-    guardarProducto(newProduct);
-    // Agregar el nuevo producto a la lista de productos
+    SaveProduct(newProduct);
     io.emit("nuevoProductoAgregado", newProduct);
   });
 
-  /*socket.on("productoEliminado", (productID) => {
-    // Eliminar el producto de la lista en el cliente
-    const productoElement = document.querySelector(`[data-id="${productID}"]`);
-    if (productoElement) {
-      productoElement.parentElement.remove();
-    }
-  });
-  */
+  socket.on("DeleteProduct", productId=>{
+    const {id} = productId
+    DeleteProduct(id)
+    socket.emit("producto eliminado", id)
+  })
+
 
   socket.on("disconnect", () => {
     console.log("Cliente desconectado");

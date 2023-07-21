@@ -59,9 +59,6 @@ function updateProductList(products) {
   });
 }
 
-// ...
-
-// Actualizar la lista de productos
 function updateProductList(products) {
   const productList = document.getElementById("productList");
   productList.innerHTML = "";
@@ -77,20 +74,31 @@ function updateProductList(products) {
       <button class="btnEliminar" data-id="${product.id}">Eliminar</button>
     `;
 
-    // Agregar el evento de clic al botón de eliminación
-    const btnEliminar = li.querySelector(".btnEliminar");
-    btnEliminar.addEventListener("click", () => {
-      eliminarProducto(product.id);
-    });
+    // const btnEliminar = li.querySelector(".btnEliminar");
+    // btnEliminar.addEventListener("click", () => {
+    //   DeleteProduct(product.id);
+    // });
+    const deleteButton = document.querySelectorAll(".btnEliminar")
+    deleteButton.forEach(button =>{
+      button.addEventListener("click", ()=>{
+        const id = parseInt(button.id)
+        const productId = {
+          id : id
+        }
+    
+        socket.emit("producto eliminado", productId)
+        location.reload()
+      });
 
     productList.appendChild(li);
   });
-}
+  }
+  )}
 
-// Función para eliminar un producto
-function eliminarProducto(productID) {
-  // Emitir el evento 'eliminarProducto' al servidor con el ID del producto
-  socket.emit("eliminarProducto", productID);
-}
+// // Función para eliminar un producto
+// function DeleteProduct(productID) {
+//   // Emitir el evento 'eliminarProducto' al servidor con el ID del producto
+//   socket.emit("DeleteProduct", productID);
+// }
 
 // Escuchar el evento 'productoEliminado' desde el servidor
