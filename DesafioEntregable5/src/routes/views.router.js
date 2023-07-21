@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { __filename, __dirname } from "../utils.js";
+import { __dirName, __fileName } from "../utils.js";
 import { obtenerListaDeProductos } from "../services/productUtils.js";
 
 const productRouter = Router();

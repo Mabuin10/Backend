@@ -1,9 +1,9 @@
 import fs from "fs";
 import path from "path";
-import  __dirname  from "../utils.js";
+import  {__dirName} from "../utils.js"
 
 export function obtenerListaDeProductos() {
-  const filePath = path.join(__dirname, "./products.json");
+  const filePath = path.join(__dirName, "./products.json");
   const fileContent = fs.readFileSync(filePath, "utf8");
   const data = JSON.parse(fileContent);
 
@@ -17,7 +17,7 @@ export function guardarProducto({
   description,
   title,
 }) {
-  const filePath = path.join(__dirname, "./products.json");
+  const filePath = path.join(__dirName, "./products.json");
   const fileContent = fs.readFileSync(filePath, "utf8");
   const data = JSON.parse(fileContent);
 

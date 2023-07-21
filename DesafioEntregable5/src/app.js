@@ -1,6 +1,6 @@
 import { engine } from "express-handlebars";
 import express from "express";
-import { __filename, __dirname } from "./utils.js";
+import { __dirName,__fileName } from "./utils.js";
 import viewsRoutes from "./routes/views.router.js";
 import viewsRealTime from "./routes/realTimeProduct.router.js";
 import { createServer } from "http";
@@ -12,10 +12,15 @@ const httpServer = createServer(app);
 
 const PORT = 8081;
 
+
+// app.get("/", (req, res) => {
+//     res.send("hola mundo");
+//   });
+
 // Configurar el motor de plantillas Handlebars
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
-app.set("views", `${__dirname}/views`);
+app.set("views", `${__dirName}/views`);
 
 // Configurar el directorio estático para archivos públicos
 app.use(express.static("public"));
