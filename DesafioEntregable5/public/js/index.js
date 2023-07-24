@@ -4,6 +4,7 @@ socket.emit("connection", "nuevo cliente conectado");
 
 document.getElementById("productForm").addEventListener("submit", (event) => {
   event.preventDefault();
+  const productId = document.getElementById("productId").value;
   const productName = document.getElementById("productName").value;
   const productTitle = document.getElementById("productTitle").value;
   const productDescription =
@@ -13,6 +14,7 @@ document.getElementById("productForm").addEventListener("submit", (event) => {
 
   console.log(
     "Nuevo producto agregado:",
+    productId,
     productName,
     productTitle,
     productDescription,
@@ -21,6 +23,7 @@ document.getElementById("productForm").addEventListener("submit", (event) => {
   );
   // Enviar el producto al servidor a través del socket
   socket.emit("agregarProducto", {
+    id: productId,
     name: productName,
     title: productTitle,
     description: productDescription,
@@ -71,34 +74,21 @@ function updateProductList(products) {
       <p>Descripción: ${product.description}</p>
       <p>Precio: ${product.price}</p>
       <p>Thumbnail: ${product.thumbnail}</p>
-      <button class="btnEliminar" data-id="${product.id}">Eliminar</button>
+      <button class="btnEliminar" id="${product.id}">Eliminar</button>
     `;
-
-    // const btnEliminar = li.querySelector(".btnEliminar");
-    // btnEliminar.addEventListener("click", () => {
-    //   DeleteProduct(product.id);
-    // });
-    const deleteButton = document.querySelectorAll(".btnEliminar")
-    deleteButton.forEach(button =>{
-      button.addEventListener("click", ()=>{
-        const id = parseInt(button.id)
-        const productId = {
-          id : id
-        }
-    
-        socket.emit("producto eliminado", productId)
-        location.reload()
-      });
 
     productList.appendChild(li);
   });
-  }
-  )}
+}
 
-// // Función para eliminar un producto
-// function DeleteProduct(productID) {
-//   // Emitir el evento 'eliminarProducto' al servidor con el ID del producto
-//   socket.emit("DeleteProduct", productID);
-// }
-
-// Escuchar el evento 'productoEliminado' desde el servidor
+const deleteButton = document.querySelectorAll(".btnEliminar");
+deleteButton.forEach((button) => {
+  button.addEventListener("click", () => {
+    const id = parseInt(button.id);
+    const productId = {
+      id: id,
+    };
+    socket.emit("DeleteProduct", productId);
+    location.reload();
+  });
+});

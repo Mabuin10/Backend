@@ -11,6 +11,8 @@ export function GetListProducts() {
 }
 
 export function SaveProduct({
+  id,
+  code,
   name,
   price,
   thumbnail,
@@ -22,6 +24,8 @@ export function SaveProduct({
   const data = JSON.parse(fileContent);
 
   data.push({
+    id: id,
+    code: code,
     name: name,
     price: price,
     thumbnail: thumbnail,
@@ -30,4 +34,14 @@ export function SaveProduct({
   });
 
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf8");
+}
+
+export function DeleteProduct (pid) {
+  const filePath = path.join(__dirname, './ProductList.json')
+  const fileContent = fs.readFileSync(filePath, 'utf-8')
+  const data = JSON.parse(fileContent)
+
+  const index = data.findIndex(product => product.id === pid)
+  this.index.splice(index, 1)
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8')
 }

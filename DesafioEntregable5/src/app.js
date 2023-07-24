@@ -5,7 +5,8 @@ import viewsRoutes from "./routes/views.router.js";
 import viewsRealTime from "./routes/realTimeProduct.router.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
-import { SaveProduct } from "./services/productUtils.js";
+import { DeleteProduct, SaveProduct } from "./services/productUtils.js";
+
 
 const app = express();
 const httpServer = createServer(app);
@@ -57,7 +58,7 @@ io.on("connection", (socket) => {
     io.emit("nuevoProductoAgregado", newProduct);
   });
 
-  socket.on("DeleteProduct", productId=>{
+  socket.on("eliminarProducto", productId=>{
     const {id} = productId
     DeleteProduct(id)
     socket.emit("producto eliminado", id)
