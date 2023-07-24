@@ -37,11 +37,12 @@ export function SaveProduct({
 }
 
 export function DeleteProduct (pid) {
-  const filePath = path.join(__dirname, './ProductList.json')
+  const filePath = path.join(__dirName, "./ProductList.json")
   const fileContent = fs.readFileSync(filePath, 'utf-8')
   const data = JSON.parse(fileContent)
 
   const index = data.findIndex(product => product.id === pid)
-  this.index.splice(index, 1)
+  data.splice(index, 1)
+  
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8')
 }

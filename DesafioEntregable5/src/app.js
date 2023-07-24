@@ -58,7 +58,7 @@ io.on("connection", (socket) => {
     io.emit("nuevoProductoAgregado", newProduct);
   });
 
-  socket.on("eliminarProducto", productId=>{
+  socket.on("DeleteProduct", productId=>{
     const {id} = productId
     DeleteProduct(id)
     socket.emit("producto eliminado", id)
