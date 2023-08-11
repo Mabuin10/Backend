@@ -1,0 +1,24 @@
+{{#each mascotas}}
+  <p>{{this.name}}</p>
+{{/each}}
+
+<form id="createPet">
+  <label>Nombre</label>
+  <input id="name" type="text" />
+  <br />
+  <label>Especie</label>
+  <input id="specie" type="text" />
+  <br />
+  <label>Fecha de nacimiento</label>
+  <input id="birthDate" type="date" />
+  <br />
+  <label>Adoptado </label>
+  <input id="adopted" type="radio" />
+  <br />
+  <label>Foto </label>
+  <input id="image" type="text" />
+  <br />
+  <input type="submit" id="submit" value="Enviar" />
+</form>
+
+<script src="http://localhost:8080/js/script.js"></script>
