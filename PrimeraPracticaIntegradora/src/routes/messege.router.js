@@ -1,11 +1,16 @@
-import messageModel from "../dao/models/messages.js";
-import { Router } from "express";
-
+import {Router} from "express"
+import {getMessages } from "../dao/dbManagers/chats.js"
 
 const router = Router()
 
-router.get("/", (req, res)=>{
-    res.render("chat", {title:'chat', script: 'chat.js'})
+router.get("/", async (req, res) => {
+        try{
+                const messages = await getMessages()
+                res.render("chat", {messages})
+        }
+        catch (err){
+                res.status(500).json({message: "No se pudo conectar con la BBDD", error: err})
+        }
+        
 })
-
-export default router
+export default router;

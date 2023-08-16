@@ -1,67 +1,43 @@
-const socket = io();
+const socket = io(); // levantamos el socket desde el lado del cliente
 
-let user;
-
-let chatBox = document.getElementById("mensajes");
-
+/* chat con websockets */
+const userMessage = document.querySelector("#userMessage");
+let userEmail;
+//autenticacion con sweet alert
 Swal.fire({
-  title: "Inicia sesion!",
-  text: "Ingresa tu nombre de usuario",
+  title: "Please enter your email",
   input: "text",
-  confirmButtonText: "Cool",
   allowOutsideClick: false,
-  inputValidator: (value) => {
-    if (!value) {
-      return "Debe ingresar un nombre de usuario";
-    }
-  },
+  showConfirmButton: false,
 }).then((result) => {
-  if (result.value) {
-    user = result.value;
-    socket.emit("new-user", { user: user, id: socket.id });
-  }
-});
+  userEmail = result.value;
 
-chatBox.addEventListener("keyup", (e) => {
-  console.log("chatBox existe", chatBox);
-  console.log("evento key up", e.key, chatBox.value);
-  if (e.key === "Enter") {
-    if (chatBox.value.trim().length > 0) {
-      socket.emit("message", {
-        user: user,
-        message: chatBox.value,
-      });
-      chatBox.value = "";
+  userMessage.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") {
+      if (userMessage.value.trim().length > 0) {
+        const obj = {
+          user: userEmail,
+          message: userMessage.value,
+        };
+        socket.emit("user-message", obj)
+        
+      } else {
+        alert("Para enviar el mensaje, debes escribir primero");
+      }
+      userMessage.value = "";
     }
-  }
-});
-
-socket.on("messageLogs", (data) => {
-  let log = document.getElementById("messageLogs");
-  let message = "";
-
-  data.forEach((elem) => {
-    message += `
-     
-        <div class="chat-message">
-        <div class="message-bubble">
-  
-          <div class="message-sender">${elem.user}</div>
-          <p>${elem.message}</p>
-          </div>
-  
-        </div>
-      `;
   });
-
-  log.innerHTML = message;
 });
 
-socket.on("new-user-connected", (data) => {
-  if (data.id !== socket.id)
-    Swal.fire({
-      text: `${data.user} se ha conectado al chat`,
-      toast: true,
-      position: "top-end",
-    });
-});
+// Escuchar el evento "new-message" del servidor
+socket.on("new-message", (message) => {
+    // Aquí actualizas el DOM con el nuevo mensaje recibido
+    const chatContainer = document.querySelector(".display-messages");
+    const messageElement = document.createElement("div");
+    messageElement.classList.add(message.id); // Asegúrate de que el mensaje tenga una clase con el ID para eliminarlo correctamente.
+    messageElement.innerHTML = `
+      <small>${message.user}</small>
+      <p>${message.message}</p>
+    `;
+    chatContainer.appendChild(messageElement);
+  });

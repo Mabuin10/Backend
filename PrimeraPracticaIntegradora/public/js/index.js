@@ -6,23 +6,31 @@ document.getElementById("productForm").addEventListener("submit", (event) => {
   event.preventDefault();
   const productName = document.getElementById("productName").value;
   const productTitle = document.getElementById("productTitle").value;
-  const productDescription =
-    document.getElementById("productDescription").value;
+  const productDescription = document.getElementById("productDescription").value;
   const productPrice = document.getElementById("productPrice").value;
   const productThumbnail = document.getElementById("productThumbnail").value;
+  const productStock = document.getElementById("productStock").value;
+  const productCategory = document.getElementById("productCategory").value;
+  const productCode = document.getElementById("productCode").value;
 
   console.log(
     "Nuevo producto agregado:",
     productName,
     productTitle,
+    productCategory,
     productDescription,
     productPrice,
+    productCode,
+    productStock,
     productThumbnail
   );
   // Enviar el producto al servidor a través del socket
   socket.emit("agregarProducto", {
     name: productName,
     title: productTitle,
+    code: productCode,
+    category: productCategory,
+    stock: productStock,
     description: productDescription,
     price: productPrice,
     thumbnail: productThumbnail,

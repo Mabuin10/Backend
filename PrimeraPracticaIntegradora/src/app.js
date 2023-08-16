@@ -1,5 +1,6 @@
 import express from "express";
 import {engine} from "express-handlebars"
+import exphbs from "express-handlebars";
 import {Server} from "socket.io"
 import __dirname from "./utils.js";
 import cartRouter from "./routes/cart.router.js"
@@ -9,10 +10,8 @@ import ViewsRealTime from "./routes/realTimeProduct.router.js"
 // import { saveProduct } from "./services/productUtils.js";
 import {getAll, save, getById} from "./dao/dbManagers/products.js"
 import productsRouter from "./routes/products.router.js"
-import handlebars from "express-handlebars";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
-import cors from "cors"
 
 dotenv.config();
 const app = express();
@@ -20,9 +19,14 @@ const PORT = process.env.PORT || 8080;
 const MONGO_URI = process.env.MONGO_URL;
 const connection = mongoose.connect(MONGO_URI);
 
+const hbs = exphbs.create(); // Creamos el motor de plantillas
+
+hbs.handlebars.registerHelper("prop", function (obj, key) {
+  return obj[key];
+});
 
 // Configurar el motor de plantillas Handlebars
-app.engine("handlebars", engine());
+app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 app.set("views", "./src/views");
 
@@ -32,7 +36,6 @@ app.use(express.static("public"));
 // Configurar el middleware para manejar las solicitudes JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
 
 // Configurar las rutas para las vistas
 app.use("/", viewsRouter);
@@ -70,17 +73,16 @@ io.on("connection", (socket) => {
     // Agregar el nuevo producto a la lista de productos
     io.emit("nuevoProductoAgregado", newProduct);
   });
-
-  /*socket.on("productoEliminado", (productID) => {
-    // Eliminar el producto de la lista en el cliente
-    const productoElement = document.querySelector(`[data-id="${productID}"]`);
-    if (productoElement) {
-      productoElement.parentElement.remove();
-    }
+  socket.on("eliminarProducto", (productId) => {
+    const { id } = productId;
+    deleteProduct(id); // fn que deletea el producto de la BBDD
   });
-  */
 
   socket.on("disconnect", () => {
     console.log("Cliente desconectado");
   });
 });
+
+
+
+// *****Falta Chequear porque no trae productos en el get inicial***

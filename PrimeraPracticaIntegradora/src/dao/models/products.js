@@ -11,10 +11,6 @@ const productsSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    code : {
-        type: Number,
-        require: true
-    },
     status : {
         type: Boolean
     },
@@ -26,10 +22,14 @@ const productsSchema = new mongoose.Schema({
         type : String,
         require : true
     },
-    thumbnail : {
-        type : String,
-    }
-
+    thumbnail: Object,
+    code: {
+        type: String,
+        unique: true,
+        require : true
+    },
+    
+    category: String 
 })
 
 const ProductsModel = mongoose.model(productsCollection, productsSchema)
