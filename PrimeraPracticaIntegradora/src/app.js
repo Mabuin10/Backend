@@ -5,10 +5,14 @@ import __dirname from "./utils.js";
 import cartRouter from "./routes/cart.router.js"
 import messageRouter from "./routes/messege.router.js"
 import viewsRouter from "./routes/views.router.js"
+import ViewsRealTime from "./routes/realTimeProduct.router.js"
+// import { saveProduct } from "./services/productUtils.js";
+import {getAll, save, getById} from "./dao/dbManagers/products.js"
 import productsRouter from "./routes/products.router.js"
 import handlebars from "express-handlebars";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
+import cors from "cors"
 
 dotenv.config();
 const app = express();
@@ -28,10 +32,11 @@ app.use(express.static("public"));
 // Configurar el middleware para manejar las solicitudes JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors());
 
 // Configurar las rutas para las vistas
 app.use("/", viewsRouter);
-// app.use("/realtime", ViewsRealTime);
+app.use("/realtime", ViewsRealTime);
 app.use("/api/products", productsRouter);
 app.use("/api/cart", cartRouter);
 app.use("/chat", messageRouter);
@@ -61,7 +66,7 @@ io.on("connection", (socket) => {
   // Escuchar evento 'agregarProducto' y emitir 'nuevoProductoAgregado'
   socket.on("agregarProducto", (newProduct) => {
     console.log("Nuevo producto recibido backend:", newProduct);
-    guardarProducto(newProduct);
+    save(newProduct);
     // Agregar el nuevo producto a la lista de productos
     io.emit("nuevoProductoAgregado", newProduct);
   });

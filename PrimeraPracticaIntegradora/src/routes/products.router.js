@@ -1,31 +1,45 @@
 import { Router } from "express";
-import ProductsModel from '../dao/models/products.js';
+// import ProductsModel from '../dao/models/products.js';
+import {getAll, getById, save, updateProduct, deleteProduct} from "../dao/dbManagers/products.js"
 
 const router = Router();
 //const productManager = new ProductManager('productos.json');
 // let productos = [];
 
-router.get ("/",async (req,res)=>{
-    const { limit } = req.query;
+// router.get ("/",async (req,res)=>{
+//     const { limit } = req.query;
 
-    if (limit) {
-        let response = await ProductsModel.find().limit(limit);
-        res.json({message:'productos encontrados', data: response})
-        } else {
-            let response = await ProductsModel.find()
-            if (response.length === 0) {
-                res.json({message: 'no hay productos', data: response})
-            } else {
-                res.json({message: 'todos los productos', data: response})
-            }
+//     if (limit) {
+//         let response = await Products.getAll().limit(limit);
+//         res.json({message:'productos encontrados', data: response})
+//         } else {
+//             let response = await Products.getAll()
+//             if (response.length === 0) {
+//                 res.json({message: 'no hay productos', data: response})
+//             } else {
+//                 res.json({message: 'todos los productos', data: response})
+//             }
+//     }
+
+// });
+router.get("/productos", async (req, res) => {
+    const Productos = await getAll();
+  
+    res.render("products", { Productos });
+  });
+  router.get("/", async (req, res) => {
+    try {
+      const respuesta = await getAll();
+      res.json({ message: "Aqui mostrara los productos", data: respuesta });
+    } catch (err) {
+      res.json({ message: "algo  ha pasado revisa los datos por favor." });
     }
-
-});
+  });
 
 
 router.get ("/:pid",async (req,res)=>{
     const { pid } = req.params
-    let producto = await ProductsModel.findById(pid)
+    let producto = await getById(pid)
     return res.json({message: 'producto encontrado', data: producto});
 })
 
@@ -46,7 +60,7 @@ router.post ("/agregarProducto", async (req, res)=>{
         thumbnail : thumbnail
         }
 
-        let result = await ProductsModel.insertMany([productoNuevo])
+        let result = await save([productoNuevo])
         return res.status(201).json({message: "Producto agregado", data : result})
     }
 })
@@ -62,14 +76,14 @@ router.put("/:pid", async (req, res) => {
             price : price
         }
 
-        let result = await ProductsModel.findByIdAndUpdate(pid, producto)
+        let result = await updateProduct(pid, producto)
         return res.json({message: 'producto actualizado', data: result})
     }
 });
 
 router.delete ("/:pid", async (req,res)=>{
     const {pid} = req.params;
-    let result = await ProductsModel.findByIdAndDelete(pid)
+    let result = await deleteProduct(pid)
     if (result === null ){
         return res.status(404).json({message: "Producto no encontrado"})
     } else {
