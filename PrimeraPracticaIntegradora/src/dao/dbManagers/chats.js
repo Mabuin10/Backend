@@ -1,4 +1,5 @@
-import messagesModel from "../models/messages.js"
+import messagesModel from "../models/chats.model.js"
+
 
 const addMessages = async (obj) => {
     try{

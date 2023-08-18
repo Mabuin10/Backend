@@ -1,11 +1,17 @@
-<header>
-  <h1> Welcome to Chat's space </h1>
-</header>
-
-<div>
-  <input type="text" placeholder="Escribi tu mensaje aca" id="chat">
+<div class="container">
+    <h1>Welcome to Chat's space</h1>
+    <div class="chat">
+        <div class="display-messages">
+            {{#each messages}}
+            <div id={{prop this 'id'}} class="messages">
+                <small>{{prop this 'user'}}</small>
+                <p>{{prop this 'message'}}</p>
+            </div>
+            {{/each}}
+        </div>
+        <input type="text" name="message" id="userMessage">
+    </div>
 </div>
-
-<section id="mensajes">
-
-</section>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="./js/chat.js"></script>

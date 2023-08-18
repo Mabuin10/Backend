@@ -12,14 +12,26 @@ import {getAll, save, getById} from "./dao/dbManagers/products.js"
 import productsRouter from "./routes/products.router.js"
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
+import { addMessages } from "./dao/dbManagers/chats.js";
 
 dotenv.config();
+
 const app = express();
+
+// Conexion a la bd
+
 const PORT = process.env.PORT || 8080;
 const MONGO_URI = process.env.MONGO_URL;
 const connection = mongoose.connect(MONGO_URI);
+connection.then(() => {
+  console.log("Conexion a la base de datos exitosa");
+}),
+  (error) => {
+    console.log("Error en la conexion a la base de datos", error);
+  };
 
-const hbs = exphbs.create(); // Creamos el motor de plantillas
+
+  const hbs = exphbs.create(); // Creamos el motor de plantillas
 
 hbs.handlebars.registerHelper("prop", function (obj, key) {
   return obj[key];
@@ -77,12 +89,11 @@ io.on("connection", (socket) => {
     const { id } = productId;
     deleteProduct(id); // fn que deletea el producto de la BBDD
   });
-
+  socket.on("user-message", (obj) => {
+    addMessages(obj);
+    io.emit("new-message", obj) //enviar el mensaje a todos los usuarios conectados
+  });
   socket.on("disconnect", () => {
     console.log("Cliente desconectado");
   });
 });
-
-
-
-// *****Falta Chequear porque no trae productos en el get inicial***

@@ -36,12 +36,29 @@ const router = Router();
 router.get("/", async (req, res) => {
   try {
     const products = await getAll();
-    console.log("esto trae products", products);
+    console.log("Aca traigo products", products);
     console.log(products[0].category);
-    res.render("home", { products });
+    res.render("products", { products });
   } catch (err) {
-    res.render("home", `Ha ocurrido un error ${err}`);
+    res.render("products", `Ha ocurrido un error ${err}`);
   }
 });
 
 export default router;
+
+
+
+// const router = Router();
+
+// router.get("/", async (req, res) => {
+//   try {
+//     const products = await getProducts();
+//     console.log("esto trae products", products);
+//     console.log(products[0].category);
+//     res.render("home", { products });
+//   } catch (err) {
+//     res.render("home", `Ha ocurrido un error ${err}`);
+//   }
+// });
+
+// export default router;

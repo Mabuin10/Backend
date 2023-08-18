@@ -66,3 +66,52 @@ body {
     color: #666;
     margin-bottom: 5px;
   }
+  /* CHAT STYLES */
+
+.container{
+  margin: 2rem;
+}
+
+.container h1 {
+  color: green;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.chat {
+  height: 80vh;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.display-messages {
+  display:flex;
+  flex-direction: column;
+  gap: .5rem;
+  overflow-y: scroll;
+  padding-block: 1rem;
+}
+
+.display-messages > div {
+  display:flex;
+  flex-direction: column;
+  gap: .25rem;
+  background-color:rgb(208, 206, 204);
+  border-radius: 2rem;
+  padding-inline: 2rem;
+}
+
+.display-messages > small {
+  color: rgb(138, 123, 123);
+}
+
+.display-messages > p {
+  color:black;
+  font-size: 1.2rem;
+}
+
+
+.chat input {
+  padding: 1rem;
+}
