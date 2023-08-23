@@ -37,10 +37,9 @@ router.get("/", async (req, res) => {
   try {
     const products = await getAll();
     console.log("Aca traigo products", products);
-    console.log(products[0].category);
-    res.render("products", { products });
+    res.render("realtimeproducts", { products });
   } catch (err) {
-    res.render("products", `Ha ocurrido un error ${err}`);
+    res.render("realtimeproducts", `Ha ocurrido un error ${err}`);
   }
 });
 

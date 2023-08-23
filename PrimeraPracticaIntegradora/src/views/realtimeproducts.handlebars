@@ -71,19 +71,19 @@
   <ul id="productList">
     {{#each products}}
       <li>
-        <h3>{{name}}</h3>
-        <p>Título: {{title}}</p>
-        <p>Descripción: {{description}}</p>
-        <p>Precio: {{price}}</p>
-        <img src={{thumbnail}} />
-        <button class="btnEliminar" data-id="{{id}}">Eliminar</button>
+        <h3>{{prop this 'name'}}</h3>
+        <p>Título: {{prop this 'title'}}</p>
+        <p>Descripción: {{prop this 'description'}}</p>
+        <p>Precio: {{prop this 'price'}}</p>
+        <img src={{prop this 'thumbnail'}} />
+        <button class="btnEliminar" data-id="{{prop this '_id'}}">Eliminar </button>
       </li>
     {{/each}}
   </ul>
 
 </div>
 <script src="/socket.io/socket.io.js"></script>{{!-- /script de socket para poder utilizarlo del lado del cliente. --}}
-<script src="./js/script.js"></script>
+<script src="../../public/js/index.js"></script>
 {{!-- <script src="http://localhost:8080/js/script.js"></script> --}}
 {{!-- <div>
   <h1>Productos</h1>
