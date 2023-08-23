@@ -71,12 +71,13 @@
   <ul id="productList">
     {{#each products}}
       <li>
-        <h3>{{name}}</h3>
-        <p>Título: {{title}}</p>
-        <p>Descripción: {{description}}</p>
-        <p>Precio: {{price}}</p>
-        <img src={{thumbnail}} />
-        <button class="btnEliminar" data-id="{{id}}">Eliminar</button>
+        <h3>{{prop this 'name'}}</h3>
+        <p>Título: {{prop this 'title'}}</p>
+        <p>Descripción: {{prop this 'description'}}</p>
+        <p>Precio: {{prop this 'price'}}</p>
+        <img src={{prop this 'thumbnail'}} />
+        {{!-- <button class="btnEliminar" data-id="{{id}}">Eliminar</button> --}}
+        <button class="deleteButton btn btn-outline-danger" id={{ _id }}>Eliminar</button>
       </li>
     {{/each}}
   </ul>

@@ -8,7 +8,7 @@ import messageRouter from "./routes/messege.router.js"
 import viewsRouter from "./routes/views.router.js"
 import ViewsRealTime from "./routes/realTimeProduct.router.js"
 // import { saveProduct } from "./services/productUtils.js";
-import {getAll, save, getById} from "./dao/dbManagers/products.manager.js"
+import {getAll, save, getById, deleteProduct} from "./dao/dbManagers/products.manager.js"
 import productsRouter from "./routes/products.router.js"
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
@@ -85,7 +85,7 @@ io.on("connection", (socket) => {
     // Agregar el nuevo producto a la lista de productos
     io.emit("nuevoProductoAgregado", newProduct);
   });
-  socket.on("eliminarProducto", (productId) => {
+  socket.on("deleteProduct", (productId) => {
     const { id } = productId;
     deleteProduct(id); // fn que deletea el producto de la BBDD
   });

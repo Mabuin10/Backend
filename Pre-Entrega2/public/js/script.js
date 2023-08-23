@@ -50,7 +50,7 @@ deleteButton.forEach(button => {
             id: id
         }
         //envio el socket para recibirlo en el servidor
-        socket.emit('delete-product', productId)
+        socket.emit('deleteProduct', productId)
         //fuerzo el refresh para que se actualice la lista. 
         location.reload()
     })
