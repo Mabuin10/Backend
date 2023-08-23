@@ -8,7 +8,7 @@ import messageRouter from "./routes/messege.router.js"
 import viewsRouter from "./routes/views.router.js"
 import ViewsRealTime from "./routes/realTimeProduct.router.js"
 // import { saveProduct } from "./services/productUtils.js";
-import {getAll, save, getById} from "./dao/dbManagers/products.js"
+import {getAll, save, getById} from "./dao/dbManagers/products.manager.js"
 import productsRouter from "./routes/products.router.js"
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
@@ -50,7 +50,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Configurar las rutas para las vistas
-// app.use("/", viewsRouter);
+app.use("/", viewsRouter);
 app.use("/realtime", ViewsRealTime);
 app.use("/api/products", productsRouter);
 app.use("/api/cart", cartRouter);

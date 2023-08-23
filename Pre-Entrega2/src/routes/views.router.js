@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {getAll} from "../dao/dbManagers/products.js"
+import {getAll} from "../dao/dbManagers/products.manager.js"
 
 // const router = Router();
 
@@ -37,7 +37,6 @@ router.get("/", async (req, res) => {
   try {
     const products = await getAll();
     console.log("Aca traigo products", products);
-    console.log(products[0].category);
     res.render("products", { products });
   } catch (err) {
     res.render("products", `Ha ocurrido un error ${err}`);
