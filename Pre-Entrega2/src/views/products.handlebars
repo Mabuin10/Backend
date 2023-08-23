@@ -1,5 +1,5 @@
 <div>
-    <h1 class="title">Lista de productos</h1>
+    <h1 class="title">Lista de productos.</h1>
     <div class="list">
         <ul>
             {{#each products}}
@@ -16,10 +16,14 @@
                         <p><span>Price:</span> ${{prop this 'price'}}</p>
                         <p><span>Stock:</span> {{prop this 'stock'}}</p>
                     </div>
+                    <button class="btn btn-outline-primary btn-sm mt-2" type="button"
+                        onclick="addToCart('{{prop this '_id'}}')">
+                        Add to cart
+                    </button>
                 </div>
                 <div class="thumbnails">
                     {{#each (prop this 'thumbnails')}}
-                        <img src="{{this}}" alt="{{prop ../this 'title'}}">
+                    <img src="{{this}}" alt="{{prop ../this 'title'}}">
                     {{/each}}
                 </div>
             </li>

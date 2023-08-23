@@ -8,7 +8,7 @@ import messageRouter from "./routes/messege.router.js"
 import viewsRouter from "./routes/views.router.js"
 import ViewsRealTime from "./routes/realTimeProduct.router.js"
 // import { saveProduct } from "./services/productUtils.js";
-import {getAll, save, getById} from "./dao/dbManagers/products.js"
+import {getAll, save, getById} from "./dao/dbManagers/products.manager.js"
 import productsRouter from "./routes/products.router.js"
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";

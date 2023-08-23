@@ -1,6 +1,6 @@
 import { Router } from "express";
 import Carts from "../dao/dbManagers/carts.manager.js";
-import { getById } from "../dao/dbManagers/products.js";
+import { getById } from "../dao/dbManagers/products.manager.js";
 
 
 const router = Router();
@@ -30,7 +30,7 @@ router.get("/:cid", async (req, res) => {
         if(cart){
             const productsWithDetails = [];
             for (const item of cart.products) {
-                const productDetails = await products.getById(item.id);
+                const productDetails = await getById(item.id);
                 productsWithDetails.push({
                     product: productDetails,
                     quantity: item.quantity
@@ -61,35 +61,40 @@ router.post("/",async (req,res)=>{
     }
 });
 
-router.post("/:cid/product/:pid",async (req,res)=>{
-    let {cid, pid} = req.params;
-    let {quantity} = req.body;
-    try{
-        let cart = await carts.getById(cid);
-        let product = await getById(pid);
-        
-        if(cart){
-            if(product){
-            const existsPindex = cart.products.findIndex((producto) => producto.id === pid);
-            
-            if(existsPindex !==-1){
-                cart.products[existsPindex].quantity+=parseInt(quantity);
-            }else{cart.products.push({id:pid,quantity:parseInt(quantity)})}
-            const updatedCart = await carts.save(cart);
-            const cartId = updatedCart._id;
-            const addedToCart = true;
-
-            res.redirect(`/api/products?cartId=${cartId}&addedToCart=${addedToCart}`);
-        }else{
-            res.status(404).json({message:"The product does not exists" });
-        }
-        }else{
-            res.status(404).json({message:"The cart does not exists" });
-        }
-    }catch(error){
-        console.log(error)
+//Método asyncrono para agregar productos al carrito
+router.post("/:cid/product/:pid", async (req, res) => {
+    const { cid, pid } = req.params;
+    //console.log("he recibido algo", cid, pid);
+  
+    try {
+      //el carrito esta vacio?
+  
+      const cart = await carts.getById(cid);
+      cart.products.forEach((product) => console.log(product));
+      let productExistsInCart = cart.products.findIndex(
+        (dato) => dato.product == pid
+      );
+      productExistsInCart == -1
+        ? cart.products.push({
+            product: pid,
+            quantity: 1,
+          })
+        : (cart.products[productExistsInCart].quantity =
+            cart.products[productExistsInCart].quantity + 1);
+  
+      const result = await carts.update(cid, cart);
+  
+      const updatedCart = await carts.getById(cid);
+      console.log(updatedCart);
+  
+      res.json({ message: "Carrito actualizado con éxito", data: updatedCart });
+    } catch (err) {
+      res.status(500).json({
+        message: "Error al actualizar el carrito",
+        data: err,
+      });
     }
-});
+  });
 
 router.delete("/:cid/products/:pid",async(req,res)=>{
     const {cid,pid} = req.params

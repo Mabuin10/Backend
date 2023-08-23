@@ -50,7 +50,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Configurar las rutas para las vistas
-app.use("/", viewsRouter);
+// app.use("/", viewsRouter);
 app.use("/realtime", ViewsRealTime);
 app.use("/api/products", productsRouter);
 app.use("/api/cart", cartRouter);

@@ -27,9 +27,7 @@ const productsSchema = new mongoose.Schema({
         type: String,
         unique: true,
         require : true
-    },
-    
-    category: String 
+    }
 })
 
 const ProductsModel = mongoose.model(productsCollection, productsSchema)
