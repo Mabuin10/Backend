@@ -2,8 +2,14 @@ import ProductsModel from "../models/products.js";
 
 
 const getAll = async () => {
-    const response = await ProductsModel.find()
+    const response = await ProductsModel.find().lean()
     return response
+}
+const getAllWFilters = async (obj) => {
+    const { limit, page, query, sort } = obj
+
+    const response = await ProductsModel.paginate({}, { limit: limit, page: page })
+    return response;
 }
 
 const getById = async (id) => {
@@ -27,4 +33,4 @@ const deleteProduct = async (id) => {
 }
 
 
-export {getAll, getById, save, updateProduct, deleteProduct}
+export {getAll,getAllWFilters, getById, save, updateProduct, deleteProduct}

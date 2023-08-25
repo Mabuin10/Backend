@@ -1,6 +1,6 @@
 import { Router } from "express";
-import Carts from "../dao/dbManagers/carts.manager.js";
-import { getById } from "../dao/dbManagers/products.manager.js";
+import Carts from "../dao/dbManager/carts.manager.js";
+import { getById } from "../dao/dbManager/products.manager.js"
 
 
 const router = Router();
@@ -53,6 +53,7 @@ router.post("/",async (req,res)=>{
         let cart = await carts.save();
         if(cart){
             res.json({message: "Cart created"});
+            console.log(cart)
         }else{
             res.status(400).json({message:"The cart couldn't be created" });
         }

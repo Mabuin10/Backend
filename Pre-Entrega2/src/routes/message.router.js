@@ -1,5 +1,5 @@
 import {Router} from "express"
-import { getMessages } from "../dao/dbManagers/chats.js"
+import { getMessages } from "../dao/dbManager/chats.manager.js"
 
 const router = Router()
 

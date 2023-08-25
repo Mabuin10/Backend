@@ -1,167 +1,66 @@
-<div>
-  <h1>Realtime Productos</h1>
+<h1 class="h1">Productos online</h1>
+<div style="display: flex;" style="flex-wrap: wrap;" id="contenedor">
+</div>
+<br>
+<button type="button" class="btn btn-outline-success m-2" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+  Agregar Producto
+</button>
 
-  <form id="productForm" method="POST" action="/realtimeproducts">
-    <label for="productName">Nombre del producto:</label>
-    <input
-      type="text"
-      id="productName"
-      name="name"
-      placeholder="Nombre del producto"
-    />
+<!-- Modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Crear Producto</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formProducts" method="post" action="/realtimeproducts">
+          <label for="productTitle">Titulo:</label>
+          <input type="text" placeholder="Titulo del producto" name="title" id="productTitle" />
+          <label for="productDescription">Descripcion:</label>
+          <textarea type="text" rows="10" placeholder="Descripcion del producto" name="description"
+            id="productDescription"></textarea>
+          <label for="productCategory">Categoría producto: </label>
+          <input type="text" placeholder="Categoría del producto" name="category" id="productCategory">
+          <label for="productPrice">Precio: </label>
+          <input type="number" placeholder="Precio del producto" name="price" id="productPrice">
+          <label for="productCode">Codigo Producto</label>
+          <input type="text" placeholder="Codigo del producto" name="code" id="productCode">
+          <label for="productStock">Stock:</label>
+          <input type="number" placeholder="cantidad en stock" name="stock" id="productStock">
+          <label for="productThumbnails">Imagenes:</label>
+          <input type="text" placeholder="URL de la imagen" name="thumbnails" id="productThumbnails">
+          <button type="submit">Agregar</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <label for="productTitle">Título:</label>
-    <input
-      type="text"
-      id="productTitle"
-      name="title"
-      placeholder="Título del producto"
-    />
-
-    <label for="productDescription">Descripción:</label>
-    <textarea
-      id="productDescription"
-      name="description"
-      placeholder="Descripción del producto"
-    ></textarea>
-
-    <label for="productPrice">Precio:</label>
-    <input
-      type="number"
-      id="productPrice"
-      name="price"
-      step="0.01"
-      placeholder="Precio del producto"
-    />
-
-    <label for="productThumbnail">Thumbnail:</label>
-    <input
-      type="text"
-      id="productThumbnail"
-      name="thumbnail"
-      placeholder="URL del thumbnail"
-    />
-
-    <label for="productCode">Código:</label>
-    <input
-      type="text"
-      id="productCode"
-      name="code"
-      placeholder="Código del producto"
-    />
-
-    <label for="productStock">Stock:</label>
-    <input
-      type="number"
-      id="productStock"
-      name="stock"
-      placeholder="Stock del producto"
-    />
-
-    <label for="productCategory">Category:</label>
-    <input
-      type="text"
-      id="productCategory"
-      name="category"
-      placeholder="Categoria del producto"
-    />
-
-    <button type="submit">Agregar</button>
-  </form>
+<h2>Lista de Productos</h2>
+<div class="list container-fluid">
   <ul id="productList">
     {{#each products}}
-      <li>
-        <h3>{{prop this 'name'}}</h3>
-        <p>Título: {{prop this 'title'}}</p>
-        <p>Descripción: {{prop this 'description'}}</p>
-        <p>Precio: {{prop this 'price'}}</p>
-        <img src={{prop this 'thumbnail'}} />
-        {{!-- <button class="btnEliminar" data-id="{{id}}">Eliminar</button> --}}
-        <button class="deleteButton btn btn-outline-danger" id={{ _id }}>Eliminar</button>
-      </li>
+    <li>
+      <div class="info">
+        <h3>{{title}}</h3>
+        <p>Categoria: {{category}}</p>
+        <p>Codigo: {{code}}</p>
+        <p>Descripcion: {{description}}</p>
+        <p>Precio: $ {{price}}</p>
+        <img class="img-thumbnail rounded " src={{thumbnails}} alt={{title}}/>
+        <p>Stock: {{stock}}</p>
+      </div>
+      <button class="deleteButton btn btn-outline-danger" id={{ _id }}>Eliminar</button>
+    </li>
     {{/each}}
   </ul>
-
-</div>
-<script src="/socket.io/socket.io.js"></script>{{!-- /script de socket para poder utilizarlo del lado del cliente. --}}
-<script src="./js/script.js"></script>
-{{!-- <script src="http://localhost:8080/js/script.js"></script> --}}
-{{!-- <div>
-  <h1>Productos</h1>
-
-  <form id="productForm" method="POST" action="/realTimeProducts">
-    <label for="productName">Nombre:</label>
-    <input
-      type="text"
-      id="productName"
-      name="name"
-      placeholder="Nombre del producto"
-    />
-
-    <label for="productTitle">Título:</label>
-    <input
-      type="text"
-      id="productTitle"
-      name="title"
-      placeholder="Título del producto"
-    />
-
-    <label for="productDescription">Descripción:</label>
-    <textarea
-      id="productDescription"
-      name="description"
-      placeholder="Descripción del producto"
-    ></textarea>
-
-    <label for="productPrice">Precio:</label>
-    <input
-      type="number"
-      id="productPrice"
-      name="price"
-      step="0.01"
-      placeholder="Precio del producto"
-    />
-
-    <label for="productThumbnail">Thumbnail:</label>
-    <input
-      type="text"
-      id="productThumbnail"
-      name="thumbnail"
-      placeholder="URL del thumbnail"
-    />
-
-    <label for="productCode">Código:</label>
-    <input
-      type="text"
-      id="productCode"
-      name="code"
-      placeholder="Código del producto"
-    />
-
-    <label for="productStock">Stock:</label>
-    <input
-      type="number"
-      id="productStock"
-      name="stock"
-      placeholder="Stock del producto"
-    />
-
-    <button type="submit">Agregar</button>
-  </form>
-
-<div class="container">
-    {{#each products}}
-    <div class="product-card">
-    <p>Código: {{this.code}}</p>
-    <p>Nombre: {{this.nombre}}</p>
-    <p>Descripción: {{this.description}}</p>
-    <p>Precio: {{this.price}}</p>
-    <p>Stock: {{this.stock}}</p>
-    <p>Categoría: {{this.category}}</p>
-    <button class="deleteButton" id={{this.id}}>Eliminar</button>
-    </div>
-{{/each}}
-
 </div>
 
-<script src="/socket.io/socket.io.js"></script> --}}
+
+<script src="/socket.io/socket.io.js"></script>
+<script src='./js/script.js'></script>

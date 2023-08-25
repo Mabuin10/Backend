@@ -1,15 +1,13 @@
-const socket = io() // levantamos el socket desde el lado del cliente
+const socket = io()
 
 socket.on('render', (data) => {
     console.log(data)
 })
-socket.emit("connection", "nuevo cliente conectado");
 
-
-const form = document.getElementById("productForm")
+const form = document.getElementById("formProducts")
 form.addEventListener("submit", (e) => {
     e.preventDefault()
-    
+
     const productTitle = document.getElementById("productTitle");
     const productDescription = document.getElementById("productDescription")
     const productPrice = document.getElementById("productPrice")
@@ -24,7 +22,7 @@ form.addEventListener("submit", (e) => {
         price: productPrice.value,
         code: productCode.value,
         stock: productStock.value,
-        thumbnails: productThumbnails.value? [productThumbnails.value] : [],
+        thumbnails: productThumbnails.value ? [productThumbnails.value] : [],
         category: productCategory.value
     }
 
@@ -33,12 +31,11 @@ form.addEventListener("submit", (e) => {
     //vacio los campos del formualrio
     productTitle.value = ""
     productDescription.value = ""
-    productPrice.value= ""
-    productCode.value= ""
+    productPrice.value = ""
+    productCode.value = ""
     productStock.value = ""
     productThumbnails.value = ""
 
-    //refresca para que se pueda actualizar la lista de productos.
     location.reload()
 })
 
@@ -49,9 +46,7 @@ deleteButton.forEach(button => {
         const productId = {
             id: id
         }
-        //envio el socket para recibirlo en el servidor
         socket.emit('deleteProduct', productId)
-        //fuerzo el refresh para que se actualice la lista. 
         location.reload()
     })
 })

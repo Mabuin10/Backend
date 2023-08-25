@@ -1,11 +1,11 @@
 <div class="container">
-    <h1>Welcome to Chat's space</h1>
+    <h1>BIENVENIDOS AL CHAT</h1>
     <div class="chat">
         <div class="display-messages">
             {{#each messages}}
-            <div id={{prop this 'id'}} class="messages">
-                <small>{{prop this 'user'}}</small>
-                <p>{{prop this 'message'}}</p>
+            <div id={{this._id}} class="messages">
+                <small>{{this.user}}</small>
+                <p>{{this.message}}</p>
             </div>
             {{/each}}
         </div>

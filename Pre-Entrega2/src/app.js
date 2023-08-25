@@ -1,27 +1,25 @@
 import express from "express";
-import {engine} from "express-handlebars"
-import exphbs from "express-handlebars";
-import {Server} from "socket.io"
-import __dirname from "./utils.js";
-import cartRouter from "./routes/cart.router.js"
-import messageRouter from "./routes/messege.router.js"
-import viewsRouter from "./routes/views.router.js"
-import ViewsRealTime from "./routes/realTimeProduct.router.js"
-// import { saveProduct } from "./services/productUtils.js";
-import {getAll, save, getById, deleteProduct} from "./dao/dbManagers/products.manager.js"
-import productsRouter from "./routes/products.router.js"
 import mongoose from "mongoose";
+import { Server } from "socket.io";
+import { engine } from "express-handlebars";
 import * as dotenv from "dotenv";
-import { addMessages } from "./dao/dbManagers/chats.js";
+import cors from "cors";
+import { save, deleteProduct} from "./dao/dbManager/products.manager.js";
+import { addMessages } from "./dao/dbManager/chats.manager.js";
+// Routes
+import viewRouter from "./routes/viewsRouter.js";
+import productsRouter from "./routes/products.router.js";
+import realTimeProductsRouter from "./routes/realTimeProducts.router.js";
+import cartRouter from "./routes/cart.router.js";
+import messageRouter from "./routes/message.router.js"
 
 dotenv.config();
-
 const app = express();
 
-// Conexion a la bd
-
-const PORT = process.env.PORT || 8080;
+const port = process.env.PORT || 8080;
+const publicRoot = "./public";
 const MONGO_URI = process.env.MONGO_URL;
+
 const connection = mongoose.connect(MONGO_URI);
 connection.then(() => {
   console.log("Conexion a la base de datos exitosa");
@@ -30,68 +28,56 @@ connection.then(() => {
     console.log("Error en la conexion a la base de datos", error);
   };
 
+// Middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(publicRoot));
+app.use(cors());
 
-  const hbs = exphbs.create(); // Creamos el motor de plantillas
-
-hbs.handlebars.registerHelper("prop", function (obj, key) {
-  return obj[key];
-});
-
-// Configurar el motor de plantillas Handlebars
-app.engine("handlebars", hbs.engine);
+// Handlebars
+app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", "./src/views");
 
-// Configurar el directorio estático para archivos públicos
-app.use(express.static("public"));
-
-// Configurar el middleware para manejar las solicitudes JSON
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
-// Configurar las rutas para las vistas
-app.use("/", viewsRouter);
-app.use("/realtime", ViewsRealTime);
+// Routes
+app.use("/", viewRouter);
 app.use("/api/products", productsRouter);
-app.use("/api/cart", cartRouter);
+app.use("/realTime", realTimeProductsRouter);
+app.use("/api/carts", cartRouter);
 app.use("/chat", messageRouter);
 
-// Iniciar el servidor HTTP
-// httpServer.listen(PORT, () => {
-//   console.log(`Servidor en ejecución en http://localhost:${PORT}`);
-// });
+// Iniciar el Server
+const httpServer = app.listen(port, () => {
+  console.log(
+    `Servidor en ejecucion en : http://localhost:${httpServer.address().port}`
+  );
+});
+httpServer.on("error", (error) => console.log(`Error: ${error}`));
 
-
-const httpServer = app.listen(PORT, () => console.log(`Servidor en ejecución en http://localhost:${PORT}`));
 // Configuración del lado del servidor
 const io = new Server(httpServer);
 
 // Configurar el evento de conexión de Socket.IO
 io.on("connection", (socket) => {
   console.log("Nuevo cliente conectado");
-
-  // Manejar eventos personalizados
-  socket.on("mensaje", (data) => {
-    console.log("Mensaje recibido:", data);
+  socket.on("message", (data) => {
+    console.log(data);
 
     // Enviar una respuesta al cliente
     socket.emit("respuesta", "Mensaje recibido correctamente");
   });
-
-  // Escuchar evento 'agregarProducto' y emitir 'nuevoProductoAgregado'
-  socket.on("agregarProducto", (newProduct) => {
-    console.log("Nuevo producto recibido backend:", newProduct);
-    save(newProduct);
-    // Agregar el nuevo producto a la lista de productos
-    io.emit("nuevoProductoAgregado", newProduct);
+  socket.on("addProduct", (product) => {
+    save(product);
+    console.log('Producto creado: ', product )
   });
   socket.on("deleteProduct", (productId) => {
     const { id } = productId;
-    deleteProduct(id); // fn que deletea el producto de la BBDD
+    deleteProduct(id);
+    console.log('Producto Eliminado: ', id )
   });
   socket.on("user-message", (obj) => {
     addMessages(obj);
-    io.emit("new-message", obj) //enviar el mensaje a todos los usuarios conectados
+    io.emit("new-message", obj);
   });
   socket.on("disconnect", () => {
     console.log("Cliente desconectado");
