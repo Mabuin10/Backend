@@ -22,7 +22,7 @@ form.addEventListener("submit", (e) => {
         price: productPrice.value,
         code: productCode.value,
         stock: productStock.value,
-        thumbnails: productThumbnails.value ? [productThumbnails.value] : [],
+        thumbnail: productThumbnails.value ? [productThumbnails.value] : [],
         category: productCategory.value
     }
 

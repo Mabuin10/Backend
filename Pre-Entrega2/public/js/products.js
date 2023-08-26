@@ -1,16 +1,23 @@
 function addToCart(id, product) {
     alert (id)
-    let carrito = "64e8da8fab89789ad37a41b5";
-    postCart(id, carrito)
+    const carrito = fetch("/api/carts", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+            },
+        });
+    const carritoId = carrito._id
+
+    postCart(id, carritoId)
       .then((dato) => {
         alert("producto agregado al carrito", dato);
       })
       .catch((err) => console.log(err, "no se agrego el producto "));
   }
   
-  async function postCart(id, carrito) {
+  async function postCart(id, carritoId) {
     try {
-      const response = await fetch(`/api/cart/${carrito}/products/${id}`, {
+      const response = await fetch(`/api/cart/${carritoId}/products/${id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -24,7 +31,7 @@ function addToCart(id, product) {
   
   async function increase(idCart, idProduct) {
     console.log(idCart, idProduct);
-    let carrito = "64e5766ed24a46ef2566ffe8";
+    // let carrito = "hardcodeado funiona";
     postCart(idProduct, carrito)
       .then((dato) => {
         alert("producto agregado al carrito", dato);

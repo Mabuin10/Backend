@@ -1,7 +1,7 @@
 {
   "name": "preentrega2",
   "version": "1.0.0",
-  "description": "Clonar el ropositorio\r ```sh\r https://github.com/avidela47/Desafios-Comision-43385\r ```",
+  "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {

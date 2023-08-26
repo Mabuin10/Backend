@@ -7,14 +7,14 @@ const router = Router();
 const carts = new Carts();
 
 router.get("/", async (req, res) => {
-    const {limit} = req.query;
+    const { limit } = req.query;
     try{
         let response = await carts.getAll();
         if(limit){
             let tempArray = response.filter((dat, index) => index < limit)
-            res.json({carts: tempArray, limit: limit,quantity: tempArray.length});
+            res.render("cart" ,{carts: tempArray, limit: limit,quantity: tempArray.length});
         }else{
-        res.json({carts: response});
+        res.render("cart", {carts: response});
         }
     }catch(error){
         console.log(error)
@@ -65,7 +65,7 @@ router.post("/",async (req,res)=>{
 //Método asyncrono para agregar productos al carrito
 router.post("/:cid/product/:pid", async (req, res) => {
     const { cid, pid } = req.params;
-    //console.log("he recibido algo", cid, pid);
+    console.log("he recibido algo", cid, pid);
   
     try {
       //el carrito esta vacio?

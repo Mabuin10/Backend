@@ -1,42 +1,14 @@
-<div>
-    <h1>Cart</h1>
-
-    <form>
-        <button type="button" onclick="emptyCart('/api/carts/{{cid}}')">Empty Cart</button>
-    </form>
-
-    {{#each cart}}
-
-      <p><b>Title:</b> {{prop this 'product.title'}}</p>
-      <p><b>Description:</b> {{prop this 'product.description'}}</p>
-      <p><b>Price:</b> {{prop this 'product.price'}}</p>
-      <p><b>Quantity:</b> {{quantity}}</p>
-      <form>
-            <label for="quantity">New Quantity:</label>
-            <input type="number" id="quantity-{{prop this 'product._id'}}" name="quantity" value="{{quantity}}">
-            <button type="button" onclick="updateQuantity('/api/carts/{{../cid}}/products/{{prop this 'product._id'}}')">Update Quantity</button>
-            <button type="button" onclick="removeProductFromCart('/api/carts/{{../cid}}/products/{{prop this 'product._id'}}')">Remove Product</button>
-        </form>
-      {{#if thumbnail.length}}
-      <p><b>Thumbnail:</b> {{thumbnail}}</p>
-      {{/if}}
-      
-      <hr></hr>
-    {{/each}}
-
-
-</div>
-{{!-- <section style="background-color: #eee; height: 100%">
+<section style="background-color: #eee; height: 100%">
   <div class="container h-100 py-5">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-10">
 
         <div class="d-flex justify-content-between align-items-center mb-4">
-          <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
+          <h3 class="fw-normal mb-0 text-black">Carts</h3>
 
         </div>
         {{#if cart}}
-          {{#each cart}}
+          {{#each carts}}
             <div class="card rounded-3 mb-4">
               <div class="card-body p-4">
                 <div
@@ -50,8 +22,8 @@
                     />
                   </div>
                   <div class="col-md-3 col-lg-3 col-xl-3">
-                    <p class="lead fw-normal mb-2">Producto: {{this.prodId}}</p>
-                    <p><span class="text-muted">Codigo: </span>{{this.prodId}}</p>
+                    <p class="lead fw-normal mb-2">Producto: {{prodId}}</p>
+                    <p><span class="text-muted">Codigo: </span>{{prodId}}</p>
                       <span class="text-muted">Stock: </span>con stock</p>
                   </div>
                   <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
@@ -65,7 +37,7 @@
                       id="form1"
                       min="0"
                       name="quantity"
-                      value={{this.quantity}}
+                      value={{quantity}}
                       type="number"
                       class="form-control form-control-sm"
                     />
@@ -91,9 +63,9 @@
             </div>
           {{/each}}
         {{/if}}
-
       </div>
     </div>
   </div>
-</section> --}}
-<script src="/js/products.js"></script>
+</section>
+<script src="/js/products.js"></script> 
+<script src="/js/carts.js"></script>
