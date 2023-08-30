@@ -1,0 +1,66 @@
+<h1 class="h1">Productos online</h1>
+<div style="display: flex;" style="flex-wrap: wrap;" id="contenedor">
+</div>
+<br>
+<button type="button" class="btn btn-outline-success m-2" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+  Agregar Producto
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Crear Producto</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formProducts" method="post" action="/realtimeproducts">
+          <label for="productTitle">Titulo:</label>
+          <input type="text" placeholder="Titulo del producto" name="title" id="productTitle" />
+          <label for="productDescription">Descripcion:</label>
+          <textarea type="text" rows="10" placeholder="Descripcion del producto" name="description"
+            id="productDescription"></textarea>
+          <label for="productCategory">Categoría producto: </label>
+          <input type="text" placeholder="Categoría del producto" name="category" id="productCategory">
+          <label for="productPrice">Precio: </label>
+          <input type="number" placeholder="Precio del producto" name="price" id="productPrice">
+          <label for="productCode">Codigo Producto</label>
+          <input type="text" placeholder="Codigo del producto" name="code" id="productCode">
+          <label for="productStock">Stock:</label>
+          <input type="number" placeholder="cantidad en stock" name="stock" id="productStock">
+          <label for="productThumbnail">Imagenes:</label>
+          <input type="text" placeholder="URL de la imagen" name="thumbnails" id="productThumbnails">
+          <button type="submit">Agregar</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>Lista de Productos</h2>
+<div class="list container-fluid">
+  <ul id="productList">
+    {{#each products}}
+    <li>
+      <div class="info">
+        <h3>{{title}}</h3>
+        <p>Categoria: {{category}}</p>
+        <p>Codigo: {{code}}</p>
+        <p>Descripcion: {{description}}</p>
+        <p>Precio: $ {{price}}</p>
+        <img class="img-thumbnail rounded " src={{thumbnails}} alt={{title}}/>
+        <p>Stock: {{stock}}</p>
+      </div>
+      <button class="deleteButton btn btn-outline-danger" id={{ _id }}>Eliminar</button>
+    </li>
+    {{/each}}
+  </ul>
+</div>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src='./js/script.js'></script>

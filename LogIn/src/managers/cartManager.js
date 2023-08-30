@@ -1,29 +1,29 @@
-import CartsModel from "../models/carts.model.js";
+import cartsModel from "../models/carts.model.js";
 import mongoose from "mongoose";
 
 export default class Carts {
     
     async getAll(){
-    return await CartsModel.find({}).lean();
+    return await cartsModel.find({}).lean();
     }
 
     async getById(id){
         const objectId = new mongoose.Types.ObjectId(id);
-        return await CartsModel.findOne(objectId);
+        return await cartsModel.findOne(objectId);
     }
 
     async save(data) {
-        const respuesta = CartsModel.create(data);
+        const respuesta = cartsModel.create(data);
         return respuesta;
     }
     
     async update(id, data){
-        const respuesta = CartsModel.findByIdAndUpdate(id, data);
+        const respuesta = cartsModel.findByIdAndUpdate(id, data);
         return respuesta;
     };
 
     async delete(id){
-    const respuesta = CartsModel.findByIdAndDelete(id);
+    const respuesta = cartsModel.findByIdAndDelete(id);
     return respuesta;
     };  
 
